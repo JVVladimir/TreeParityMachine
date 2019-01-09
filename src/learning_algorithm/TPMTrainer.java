@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class TPMTrainer {
 
-    private int numIteration = 100;
+    private int numIteration = 1;
 
     public ArrayList[] synchronize(TreeParityMachine tpm1, TreeParityMachine tpm2) throws NeuralNetException {
         ArrayList<Integer> outputTPM1 = new ArrayList<>();

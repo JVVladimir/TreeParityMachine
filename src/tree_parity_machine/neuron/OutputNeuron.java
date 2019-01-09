@@ -17,7 +17,7 @@ public class OutputNeuron extends Neuron {
     }
 
     @Override
-    public void changeWeights(double[] input, int outputTPM, LearningParadigm paradigm) {
+    public void changeWeights(double[] input, int outputTPM) {
 
     }
 

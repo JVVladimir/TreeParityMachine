@@ -52,7 +52,7 @@ public class TreeParityMachine implements Training {
         for(int i = 0; i < k; i++) {
             double[] mas = neurons[i].getWeights();
             for(int j = 0; j < n; j++)
-                key[i+j] = mas[j];
+                key[i*n+j] = mas[j];
         }
         return key;
     }
