@@ -6,8 +6,6 @@ import tree_parity_machine.layer.HiddenLayer;
 import tree_parity_machine.layer.OutputLayer;
 import tree_parity_machine.neuron.Neuron;
 
-import java.util.Arrays;
-
 public class TreeParityMachine implements Training {
 
     private int n;

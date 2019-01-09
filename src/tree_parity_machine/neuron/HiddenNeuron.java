@@ -28,8 +28,8 @@ public class HiddenNeuron extends Neuron {
                 case HEBIAN:
                     if (Math.abs(weights[i] + dW) <= rightBound)
                         weights[i] += input[i] * outputTPM;
-                    else
-                        weights[i] -= input[i] * outputTPM;
+                    //else
+                      //  weights[i] -= input[i] * outputTPM;
                     break;
                 case ANTI_HEBBIAN:
                     if (Math.abs(weights[i] + dW) <= rightBound)

@@ -3,7 +3,6 @@ import learning_algorithm.TPMTrainer;
 import tree_parity_machine.TreeParityMachine;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
 
