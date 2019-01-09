@@ -6,6 +6,8 @@ import tree_parity_machine.layer.HiddenLayer;
 import tree_parity_machine.layer.OutputLayer;
 import tree_parity_machine.neuron.Neuron;
 
+import java.util.Arrays;
+
 public class TreeParityMachine implements Training {
 
     private int n;
@@ -44,11 +46,22 @@ public class TreeParityMachine implements Training {
         }
     }
 
-    public LearningParadigm getParadigm() {
+    public double[] getSecretKey() {
+        double[] key = new double[n*k];
+        Neuron[] neurons = hiddenLayer.getNeurons();
+        for(int i = 0; i < k; i++) {
+            double[] mas = neurons[i].getWeights();
+            for(int j = 0; j < n; j++)
+                key[i+j] = mas[j];
+        }
+        return key;
+    }
+
+    public LearningParadigm getLearningParadigm() {
         return paradigm;
     }
 
-    public void setParadigm(LearningParadigm paradigm) {
+    public void setLearningParadigm(LearningParadigm paradigm) {
         this.paradigm = paradigm;
     }
 

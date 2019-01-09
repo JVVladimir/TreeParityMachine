@@ -18,6 +18,10 @@ public abstract class Neuron {
 
     public abstract int getOutput(double[] input) throws NeuralNetException;
 
+    public double[] getWeights() {
+        return weights;
+    }
+
     public LearningParadigm getParadigm() {
         return paradigm;
     }

@@ -41,15 +41,18 @@ public class Random {
 
     public static double[] getIntsCastedToDouble(int n) {
         double[] mas = new double[n];
-        for(int i = 0; i < n; i++)
-            mas[i] = Random.getInt();
+        for(int i = 0; i < n; i++) {
+            // mas[i] = (int) (new java.util.Random().nextDouble() * 10);
+            /*double a = new java.util.Random().nextDouble();
+            a >= 0.5 ? mas[i] = -1 : mas[i] = 1;*/
+        }
         return mas;
     }
 
     public static double[] getDoubles(int n) {
         double[] mas = new double[n];
         for(int i = 0; i < n; i++)
-            mas[i] = Random.getDouble();
+            mas[i] = new java.util.Random().nextDouble();
         return mas;
     }
 

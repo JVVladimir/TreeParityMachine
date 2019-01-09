@@ -5,10 +5,11 @@ import tree_parity_machine.TreeParityMachine;
 import utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TPMTrainer {
 
-    private int numIteration = 200;
+    private int numIteration = 100;
 
     public ArrayList[] synchronize(TreeParityMachine tpm1, TreeParityMachine tpm2) throws NeuralNetException {
         ArrayList<Integer> outputTPM1 = new ArrayList<>();
@@ -18,6 +19,10 @@ public class TPMTrainer {
         while (numIteration > 0) {
             int out1 = tpm1.getOutput(input);
             int out2 = tpm2.getOutput(input);
+            System.out.println(out1 + " : "+out2);
+            System.out.println("input: " + Arrays.toString(input));
+            System.out.println("key1: "+Arrays.toString(tpm1.getSecretKey()));
+            System.out.println("key2: "+Arrays.toString(tpm2.getSecretKey()));
             outputTPM1.add(out1);
             outputTPM2.add(out2);
             if (out1 == out2) {
