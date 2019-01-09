@@ -10,6 +10,8 @@ public class HiddenNeuron extends Neuron {
         this.inputs = inputs;
         this.paradigm = paradigm;
         weights = new double[inputs];
+        this.leftBound = leftBound;
+        this.rightBound = rightBound;
         Random.setBounds(leftBound, rightBound);
     }
 
@@ -19,19 +21,24 @@ public class HiddenNeuron extends Neuron {
     }
 
     @Override
-    public void changeWeights(double[] input, int outputTPM, LearningParadigm paradigm) {
-        for (int i = 0; i < input.length; i++)
+    public void changeWeights(double[] input, int outputTPM) {
+        for (int i = 0; i < input.length; i++) {
+            double dW = input[i] * outputTPM;
             switch (paradigm) {
                 case HEBIAN:
-                    weights[i] += input[i] * outputTPM;
+                    if (weights[i] + dW <= rightBound || weights[i] - dW >= leftBound)
+                        weights[i] += input[i] * outputTPM;
                     break;
                 case ANTI_HEBBIAN:
-                    weights[i] -= input[i] * outputTPM;
+                    if (weights[i] + dW <= rightBound || weights[i] - dW >= leftBound)
+                        weights[i] -= input[i] * outputTPM;
                     break;
                 case RANDOM_WALK:
-                    weights[i] += input[i];
+                    if (weights[i] + dW <= rightBound || weights[i] - dW >= leftBound)
+                        weights[i] += input[i];
                     break;
             }
+        }
     }
 
     public int getOutput(double[] input) throws NeuralNetException {

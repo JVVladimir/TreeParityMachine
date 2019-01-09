@@ -2,9 +2,9 @@ package utils;
 
 /**
  * Класс генерирует целые или вещественные числа в заданном диапазоне, а также массивы
- *  Если границы равны 0, то генерируется любое число
- *  Если границы равны, но не 0, то возвращается левая граница
- *  В остальных случаях генерируется число в заданном диапазоне
+ * Если границы равны 0, то генерируется любое число
+ * Если границы равны, но не 0, то возвращается левая граница
+ * В остальных случаях генерируется число в заданном диапазоне
  */
 public class Random {
 
@@ -27,31 +27,32 @@ public class Random {
         if (left == 0 && right == 0)
             return new java.util.Random().nextInt();
         else if (left == right)
-            return (int)left;
+            return (int) left;
         else
-            return (int)(left + Math.round(new java.util.Random().nextDouble() * (right - left)));
+            return (int) (left + Math.round(new java.util.Random().nextDouble() * (right - left)));
     }
 
     public static int[] getInts(int n) {
         int[] mas = new int[n];
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             mas[i] = Random.getInt();
         return mas;
     }
 
     public static double[] getIntsCastedToDouble(int n) {
         double[] mas = new double[n];
-        for(int i = 0; i < n; i++) {
-            // mas[i] = (int) (new java.util.Random().nextDouble() * 10);
-            /*double a = new java.util.Random().nextDouble();
-            a >= 0.5 ? mas[i] = -1 : mas[i] = 1;*/
+        for (int i = 0; i < n; i++) {
+            if (new java.util.Random().nextDouble() >= 0.5)
+                mas[i] = -1;
+            else
+                mas[i] = 1;
         }
         return mas;
     }
 
     public static double[] getDoubles(int n) {
         double[] mas = new double[n];
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             mas[i] = new java.util.Random().nextDouble();
         return mas;
     }

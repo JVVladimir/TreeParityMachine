@@ -40,7 +40,7 @@ public class TreeParityMachine implements Training {
             Neuron[] hiddenNeurons = hiddenLayer.getNeurons();
             for (int i = 0; i < hiddenOutput.length; i++)
                 if (hiddenOutput[i] == output)
-                    hiddenNeurons[i].changeWeights(input, output, paradigm);
+                    hiddenNeurons[i].changeWeights(input, output);
         } catch (NeuralNetException e) {
             e.printStackTrace();
         }
