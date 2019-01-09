@@ -52,6 +52,11 @@ public class TreeParityMachine implements Training {
         this.paradigm = paradigm;
     }
 
+    public int[] getTPMParams() {
+        int[] params = {n, k};
+        return params;
+    }
+
     @Override
     public String toString() {
         return "TreeParityMachine{" +

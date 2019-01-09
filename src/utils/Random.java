@@ -39,6 +39,13 @@ public class Random {
         return mas;
     }
 
+    public static double[] getIntsCastedToDouble(int n) {
+        double[] mas = new double[n];
+        for(int i = 0; i < n; i++)
+            mas[i] = Random.getInt();
+        return mas;
+    }
+
     public static double[] getDoubles(int n) {
         double[] mas = new double[n];
         for(int i = 0; i < n; i++)

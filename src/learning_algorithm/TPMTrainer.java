@@ -1,11 +1,41 @@
 package learning_algorithm;
 
-public class TPMTrainer implements Training {
+import tree_parity_machine.NeuralNetException;
+import tree_parity_machine.TreeParityMachine;
+import utils.Random;
 
+import java.util.ArrayList;
 
+public class TPMTrainer {
 
-    @Override
-    public void train(double[] input) {
+    private int numIteration = 200;
 
+    public ArrayList[] synchronize(TreeParityMachine tpm1, TreeParityMachine tpm2) throws NeuralNetException {
+        ArrayList<Integer> outputTPM1 = new ArrayList<>();
+        ArrayList<Integer> outputTPM2 = new ArrayList<>();
+        int[] params = tpm1.getTPMParams();
+        double[] input = Random.getIntsCastedToDouble(params[0]);
+        while (numIteration > 0) {
+            int out1 = tpm1.getOutput(input);
+            int out2 = tpm2.getOutput(input);
+            outputTPM1.add(out1);
+            outputTPM2.add(out2);
+            if (out1 == out2) {
+                tpm1.train(input);
+                tpm2.train(input);
+            } else {
+                input = Random.getIntsCastedToDouble(params[0]);
+            }
+            numIteration--;
+        }
+        return new ArrayList[]{outputTPM1, outputTPM2};
+    }
+
+    public int getNumIteration() {
+        return numIteration;
+    }
+
+    public void setNumIteration(int numIteration) {
+        this.numIteration = numIteration;
     }
 }
