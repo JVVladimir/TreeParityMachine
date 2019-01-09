@@ -1,5 +1,6 @@
 package tree_parity_machine.layer;
 
+import learning_algorithm.LearningParadigm;
 import tree_parity_machine.NeuralNetException;
 import tree_parity_machine.neuron.HiddenNeuron;
 import tree_parity_machine.neuron.Neuron;
@@ -10,24 +11,25 @@ public class HiddenLayer extends NetLayer {
 
     private double[] res;
 
-    public HiddenLayer(int n, int k, int leftBound, int rightBound) {
+    public HiddenLayer(int n, int k, int leftBound, int rightBound, final LearningParadigm paradigm) {
         inputs = n;
         outputs = k;
+        this.paradigm = paradigm;
         neurons = new Neuron[k];
         for (int i = 0; i < k; i++) {
-            neurons[i] = new HiddenNeuron(n, leftBound, rightBound);
+            neurons[i] = new HiddenNeuron(n, leftBound, rightBound, paradigm);
             neurons[i].init();
         }
     }
 
-    public double[] getOutput(double[][] input) throws NeuralNetException {
+    public double[] getOutput(double[] input) throws NeuralNetException {
         if (input.length != outputs)
             throw new NeuralNetException("Входной вектор не соответствует числу нейронов на скрытом слое");
-        if (input[0].length != inputs)
+        if (input.length != inputs)
             throw new NeuralNetException("Входной вектор не соответствует кол-ву весовых коэффициентов");
         double[] res = new double[outputs];
         for (int i = 0; i < outputs; i++)
-            res[i] = neurons[i].getOutput(input[i]);
+            res[i] = neurons[i].getOutput(input);
         this.res = res;
         return res;
     }
@@ -35,10 +37,10 @@ public class HiddenLayer extends NetLayer {
     @Override
     public String toString() {
         return "HiddenLayer{" +
-                "res=" + Arrays.toString(res) +
-                ", outputs=" + outputs +
+                "outputs=" + outputs +
                 ", inputs=" + inputs +
                 ", neurons=" + Arrays.toString(neurons) +
+                ", paradigm=" + paradigm +
                 '}';
     }
 }

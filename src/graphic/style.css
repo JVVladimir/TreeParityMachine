@@ -1,0 +1,9 @@
+.default-color0.chart-series-line {
+    -fx-stroke: blue;
+    -fx-stroke-dash-array: 2 12 12 2;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: red;
+}
+

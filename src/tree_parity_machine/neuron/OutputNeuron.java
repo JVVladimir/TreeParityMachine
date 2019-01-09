@@ -1,5 +1,6 @@
 package tree_parity_machine.neuron;
 
+import learning_algorithm.LearningParadigm;
 import tree_parity_machine.NeuralNetException;
 
 /***/
@@ -13,6 +14,11 @@ public class OutputNeuron extends Neuron {
     public void init() {
         for (int i = 0; i < inputs; i++)
             weights[i] = 1;
+    }
+
+    @Override
+    public void changeWeights(double[] input, int outputTPM, LearningParadigm paradigm) {
+
     }
 
     public int getOutput(double[] input) throws NeuralNetException {
