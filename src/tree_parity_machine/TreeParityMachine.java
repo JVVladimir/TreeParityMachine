@@ -35,23 +35,20 @@ public class TreeParityMachine implements Training {
         try {
             double[] hiddenOutput = hiddenLayer.getOutput(input);
             Neuron[] hiddenNeurons = hiddenLayer.getNeurons();
-            for (int i = 0; i < hiddenOutput.length; i++) {
-                // if (hiddenOutput[i] != output)
-
+            for (int i = 0; i < hiddenOutput.length; i++)
                 hiddenNeurons[i].changeWeights(input, output);
-            }
         } catch (NeuralNetException e) {
             e.printStackTrace();
         }
     }
 
     public double[] getSecretKey() {
-        double[] key = new double[n*k];
+        double[] key = new double[n * k];
         Neuron[] neurons = hiddenLayer.getNeurons();
-        for(int i = 0; i < k; i++) {
+        for (int i = 0; i < k; i++) {
             double[] mas = neurons[i].getWeights();
-            for(int j = 0; j < n; j++)
-                key[i*n+j] = mas[j];
+            for (int j = 0; j < n; j++)
+                key[i * n + j] = mas[j];
         }
         return key;
     }
