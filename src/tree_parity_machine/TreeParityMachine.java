@@ -31,13 +31,12 @@ public class TreeParityMachine implements Training {
     }
 
     @Override
-    public void train(double[] input) {
+    public void train(double[] input, int output) {
         try {
-            int output = getOutput(input);
             double[] hiddenOutput = hiddenLayer.getOutput(input);
             Neuron[] hiddenNeurons = hiddenLayer.getNeurons();
             for (int i = 0; i < hiddenOutput.length; i++)
-                if (hiddenOutput[i] == output)
+                //if (hiddenOutput[i] != output)
                     hiddenNeurons[i].changeWeights(input, output);
         } catch (NeuralNetException e) {
             e.printStackTrace();
