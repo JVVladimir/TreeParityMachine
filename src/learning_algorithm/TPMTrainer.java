@@ -5,6 +5,7 @@ import tree_parity_machine.TreeParityMachine;
 import utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TPMTrainer {
 
@@ -20,9 +21,13 @@ public class TPMTrainer {
         while (k < numIteration) {
             int out1 = tpm1.getOutput(input);
             int out2 = tpm2.getOutput(input);
+            if(Arrays.equals(tpm1.getSecretKey(), tpm2.getSecretKey())) {
+                result.add(k);
+                break;
+            }
             outputTPM1.add(out1);
             outputTPM2.add(out2);
-            if (out1 == out2) ;
+            if (out1 != out2) ;
             else {
                 tpm1.train(input, out2);
                 tpm2.train(input, out1);
