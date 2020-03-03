@@ -9,51 +9,45 @@ public class HiddenNeuron extends Neuron {
     public HiddenNeuron(int inputs, int leftBound, int rightBound, LearningParadigm paradigm) {
         this.inputs = inputs;
         this.paradigm = paradigm;
-        weights = new double[inputs];
+        weights = new short[inputs];
         this.leftBound = leftBound;
         this.rightBound = rightBound;
-        Random.setBounds(leftBound, rightBound);
     }
 
     public void init() {
         for (int i = 0; i < inputs; i++)
-            weights[i] = Random.getInt();
+            weights[i] = Random.getInt(leftBound, rightBound);
     }
 
     @Override
-    public void changeWeights(double[] input, int outputTPM) {
+    public void changeWeights(short[] input, short outputTPM) {
         for (int i = 0; i < input.length; i++) {
-            double dW = input[i] * outputTPM;
+            int dW = input[i] * outputTPM;
             switch (paradigm) {
-                case HEBIAN:
-                    if (Math.abs(weights[i] + dW) <= rightBound)
-                        weights[i] += input[i] * outputTPM;
-                    //else
-                      //  weights[i] -= input[i] * outputTPM;
+                case HEBBIAN:
+                    weights[i] += dW;
                     break;
                 case ANTI_HEBBIAN:
-                    if (Math.abs(weights[i] + dW) <= rightBound)
-                        weights[i] -= input[i] * outputTPM;
-                    else
-                        weights[i] += input[i] * outputTPM;
+                    weights[i] -= dW;
                     break;
                 case RANDOM_WALK:
-                    if (Math.abs(weights[i] + dW) <= rightBound)
-                        weights[i] += input[i];
-                    else
-                        weights[i] -= input[i] * outputTPM;
+                    weights[i] += input[i];
                     break;
             }
+            if (weights[i] > rightBound)
+                weights[i] = (short) rightBound;
+            else if (weights[i] < leftBound)
+                weights[i] = (short) leftBound;
         }
     }
 
-    public int getOutput(double[] input) throws NeuralNetException {
+    public short getOutput(short[] input) {
         if (input == null || input.length != inputs)
             throw new NeuralNetException("Входной вектор не соответствует кол-ву весовых коэффициентов");
-        double sum = 0;
+        short sum = 0;
         for (int i = 0; i < inputs; i++)
             sum += weights[i] * input[i];
-        output = sum > 0 ? 1 : -1;
+        output = (short) (sum > 0 ? 1 : -1);
         return output;
     }
 

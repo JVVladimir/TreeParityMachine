@@ -7,20 +7,20 @@ import java.util.Arrays;
 
 public abstract class Neuron {
 
-    protected int output;
+    protected short output;
     protected int inputs;
-    protected double[] weights;
+    protected short[] weights;
     protected int leftBound;
     protected int rightBound;
     protected LearningParadigm paradigm;
 
     public abstract void init();
 
-    public abstract void changeWeights(double[] input, int outputTPM);
+    public abstract void changeWeights(short[] input, short outputTPM);
 
-    public abstract int getOutput(double[] input) throws NeuralNetException;
+    public abstract short getOutput(short[] input);
 
-    public double[] getWeights() {
+    public short[] getWeights() {
         return weights;
     }
 
@@ -35,8 +35,12 @@ public abstract class Neuron {
     @Override
     public String toString() {
         return "Neuron{" +
-                "inputs=" + inputs +
+                "output=" + output +
+                ", inputs=" + inputs +
                 ", weights=" + Arrays.toString(weights) +
+                ", leftBound=" + leftBound +
+                ", rightBound=" + rightBound +
+                ", paradigm=" + paradigm +
                 '}';
     }
 }

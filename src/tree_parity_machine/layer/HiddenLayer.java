@@ -9,9 +9,9 @@ import java.util.Arrays;
 
 public class HiddenLayer extends NetLayer {
 
-    private double[] res;
+    private short[] res;
 
-    public HiddenLayer(int n, int k, int leftBound, int rightBound, final LearningParadigm paradigm) {
+    public HiddenLayer(int n, int k, int leftBound, int rightBound, LearningParadigm paradigm) {
         inputs = n;
         outputs = k;
         this.paradigm = paradigm;
@@ -22,12 +22,12 @@ public class HiddenLayer extends NetLayer {
         }
     }
 
-    public double[] getOutput(double[] input) throws NeuralNetException {
-        if (input.length != inputs)
+    public short[] getOutput(short[] input) {
+        if (input.length != inputs * outputs)
             throw new NeuralNetException("Входной вектор не соответствует кол-ву весовых коэффициентов");
-        double[] res = new double[outputs];
+        short[] res = new short[outputs];
         for (int i = 0; i < outputs; i++)
-            res[i] = neurons[i].getOutput(input);
+            res[i] = neurons[i].getOutput(Arrays.copyOfRange(input, inputs * i, inputs * (i + 1)));
         this.res = res;
         return res;
     }
@@ -35,7 +35,8 @@ public class HiddenLayer extends NetLayer {
     @Override
     public String toString() {
         return "HiddenLayer{" +
-                "outputs=" + outputs +
+                "res=" + Arrays.toString(res) +
+                ", outputs=" + outputs +
                 ", inputs=" + inputs +
                 ", neurons=" + Arrays.toString(neurons) +
                 ", paradigm=" + paradigm +

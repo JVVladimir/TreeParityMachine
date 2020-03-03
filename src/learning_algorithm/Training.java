@@ -2,6 +2,6 @@ package learning_algorithm;
 
 public interface Training {
 
-    void train(double[] input);
+    void train(short[] input, short output);
 
 }

@@ -6,6 +6,8 @@ import tree_parity_machine.layer.HiddenLayer;
 import tree_parity_machine.layer.OutputLayer;
 import tree_parity_machine.neuron.Neuron;
 
+import java.util.Arrays;
+
 public class TreeParityMachine implements Training {
 
     private int n;
@@ -16,41 +18,33 @@ public class TreeParityMachine implements Training {
     private OutputLayer outputLayer;
     private LearningParadigm paradigm;
 
-    public TreeParityMachine(int n, int k, int leftBound, int rightBound) {
+    public TreeParityMachine(int n, int k, int leftBound, int rightBound, LearningParadigm learningParadigm) {
         this.n = n;
         this.k = k;
         this.leftBound = leftBound;
         this.rightBound = rightBound;
-        this.paradigm = LearningParadigm.HEBIAN;
+        this.paradigm = learningParadigm;
         hiddenLayer = new HiddenLayer(n, k, leftBound, rightBound, paradigm);
         outputLayer = new OutputLayer(k);
     }
 
-    public int getOutput(double[] input) throws NeuralNetException {
+    public short getOutput(short[] input) {
         return outputLayer.getOutput(hiddenLayer.getOutput(input));
     }
 
     @Override
-    public void train(double[] input) {
-        try {
-            int output = getOutput(input);
-            double[] hiddenOutput = hiddenLayer.getOutput(input);
-            Neuron[] hiddenNeurons = hiddenLayer.getNeurons();
-            for (int i = 0; i < hiddenOutput.length; i++)
-                if (hiddenOutput[i] == output)
-                    hiddenNeurons[i].changeWeights(input, output);
-        } catch (NeuralNetException e) {
-            e.printStackTrace();
-        }
+    public void train(short[] input, short output) {
+        Neuron[] hiddenNeurons = hiddenLayer.getNeurons();
+        for (int i = 0; i < k; i++)
+            hiddenNeurons[i].changeWeights(Arrays.copyOfRange(input, n * i, n * (i + 1)), output);
     }
 
-    public double[] getSecretKey() {
-        double[] key = new double[n*k];
+    public short[] getSecretKey() {
+        short[] key = new short[n * k];
         Neuron[] neurons = hiddenLayer.getNeurons();
-        for(int i = 0; i < k; i++) {
-            double[] mas = neurons[i].getWeights();
-            for(int j = 0; j < n; j++)
-                key[i*n+j] = mas[j];
+        for (int i = 0; i < k; i++) {
+            short[] mas = neurons[i].getWeights();
+            if (n >= 0) System.arraycopy(mas, 0, key, i * n, n);
         }
         return key;
     }
@@ -64,8 +58,7 @@ public class TreeParityMachine implements Training {
     }
 
     public int[] getTPMParams() {
-        int[] params = {n, k};
-        return params;
+        return new int[]{n, k};
     }
 
     @Override
@@ -77,6 +70,7 @@ public class TreeParityMachine implements Training {
                 ", rightBound=" + rightBound +
                 ", hiddenLayer=" + hiddenLayer +
                 ", outputLayer=" + outputLayer +
+                ", paradigm=" + paradigm +
                 '}';
     }
 }
