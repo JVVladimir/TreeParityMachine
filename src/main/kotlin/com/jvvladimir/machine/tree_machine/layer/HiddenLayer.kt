@@ -3,7 +3,6 @@ package com.jvvladimir.machine.tree_machine.layer
 import com.jvvladimir.machine.learning.LearningParadigm
 import com.jvvladimir.machine.tree_machine.NeuralNetException
 import com.jvvladimir.machine.tree_machine.neuron.HiddenNeuron
-import com.jvvladimir.machine.tree_machine.neuron.Neuron
 
 class HiddenLayer(n: Int, k: Int, leftBound: Int, rightBound: Int, paradigm: LearningParadigm) : NetLayer() {
 
@@ -14,10 +13,9 @@ class HiddenLayer(n: Int, k: Int, leftBound: Int, rightBound: Int, paradigm: Lea
         outputs = k
         this.paradigm = paradigm
         neurons = Array(k) {
-            neurons[it] = HiddenNeuron(n, leftBound, rightBound, paradigm)
-            neurons[it].init()
-            neurons[it]
+            HiddenNeuron(n, leftBound, rightBound, paradigm)
         }
+        neurons.forEach { it.init() }
     }
 
     fun getOutput(input: IntArray): IntArray {

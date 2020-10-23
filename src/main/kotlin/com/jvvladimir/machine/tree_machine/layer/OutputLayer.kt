@@ -9,10 +9,9 @@ class OutputLayer(k: Int) : NetLayer() {
         inputs = k
         outputs = 1
         neurons = Array(1) {
-            neurons[it] = OutputNeuron(k)
-            neurons[it].init()
-            neurons[it]
+            OutputNeuron(k)
         }
+        neurons[0].init()
     }
 
     fun getOutput(input: IntArray): Int {
