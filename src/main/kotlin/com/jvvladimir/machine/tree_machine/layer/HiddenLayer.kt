@@ -12,9 +12,7 @@ class HiddenLayer(n: Int, k: Int, leftBound: Int, rightBound: Int, paradigm: Lea
         inputs = n
         outputs = k
         this.paradigm = paradigm
-        neurons = Array(k) {
-            HiddenNeuron(n, leftBound, rightBound, paradigm)
-        }
+        neurons = Array(k) { HiddenNeuron(n, leftBound, rightBound, paradigm) }
         neurons.forEach { it.init() }
     }
 
@@ -26,6 +24,5 @@ class HiddenLayer(n: Int, k: Int, leftBound: Int, rightBound: Int, paradigm: Lea
         return res
     }
 
-    override fun toString() =
-            "HiddenLayer{ res= ${res.contentToString()} outputs= $outputs inputs= $inputs neurons= ${neurons.contentToString()} paradigm= $paradigm}"
+    override fun toString() = "HiddenLayer{ res= ${res.contentToString()} outputs= $outputs inputs= $inputs neurons= ${neurons.contentToString()} paradigm= $paradigm}"
 }

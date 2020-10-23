@@ -2,7 +2,8 @@ package com.jvvladimir.machine.tree_machine.neuron
 
 import com.jvvladimir.machine.learning.LearningParadigm
 import com.jvvladimir.machine.tree_machine.NeuralNetException
-import com.jvvladimir.machine.utils.Random.getInt
+import com.jvvladimir.machine.utils.MyRandom.getInt
+import com.jvvladimir.machine.utils.MyRandom.getInts
 
 class HiddenNeuron(inputs: Int, leftBound: Int, rightBound: Int, paradigm: LearningParadigm) : Neuron() {
 
@@ -15,7 +16,7 @@ class HiddenNeuron(inputs: Int, leftBound: Int, rightBound: Int, paradigm: Learn
     }
 
     override fun init() {
-        for (i in 0 until inputs) weights[i] = getInt(leftBound, rightBound)
+        weights = getInts(inputs, leftBound, rightBound)
     }
 
     override fun changeWeights(input: IntArray, outputTPM: Int) {
@@ -34,7 +35,7 @@ class HiddenNeuron(inputs: Int, leftBound: Int, rightBound: Int, paradigm: Learn
         if (input.size != inputs) throw NeuralNetException("Входной вектор не соответствует кол-ву весовых коэффициентов")
         var sum = 0
         for (i in 0 until inputs) sum += weights[i] * input[i]
-        output = (if (sum > 0) 1 else -1)
+        output = if (sum > 0) 1 else -1
         return output
     }
 }

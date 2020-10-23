@@ -1,6 +1,7 @@
 package com.jvvladimir.machine.utils
 
-import java.util.Random
+import kotlin.random.Random
+
 
 /**
  * Класс генерирует целые или вещественные числа в заданном диапазоне, а также массивы
@@ -9,15 +10,9 @@ import java.util.Random
  * В остальных случаях генерируется число в заданном диапазоне
  */
 
-object Random {
+object MyRandom {
 
-    fun getInt(leftBound: Int, rightBound: Int): Int {
-        return Random().ints(1, leftBound, rightBound + 1).findFirst().asInt
-    }
+    fun getInt(leftBound: Int, rightBound: Int) = Random.nextInt(leftBound, rightBound + 1)
 
-    fun getInts(n: Int, leftBound: Int, rightBound: Int): IntArray {
-        val ints = IntArray(n)
-        for (i in 0 until n) ints[i] = getInt(leftBound, rightBound)
-        return ints
-    }
+    fun getInts(n: Int, leftBound: Int, rightBound: Int) = IntRange(0, n - 1).map { getInt(leftBound, rightBound) }.toIntArray()
 }

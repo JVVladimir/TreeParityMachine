@@ -10,10 +10,12 @@ class OutputNeuron(inputs: Int) : Neuron() {
     }
 
     override fun init() {
-        for (i in 0 until inputs) weights[i] = 1
+        weights.fill(1)
     }
 
-    override fun changeWeights(input: IntArray, outputTPM: Int) {}
+    override fun changeWeights(input: IntArray, outputTPM: Int) {
+        TODO("Not implemented")
+    }
 
     override fun getOutput(input: IntArray): Int {
         if (input.size != inputs) throw NeuralNetException("Входной вектор не соответствует кол-ву весовых коэффициентов")

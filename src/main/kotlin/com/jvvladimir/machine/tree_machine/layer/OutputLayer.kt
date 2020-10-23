@@ -8,9 +8,7 @@ class OutputLayer(k: Int) : NetLayer() {
     init {
         inputs = k
         outputs = 1
-        neurons = Array(1) {
-            OutputNeuron(k)
-        }
+        neurons = Array(1) { OutputNeuron(k) }
         neurons[0].init()
     }
 

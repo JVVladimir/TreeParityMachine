@@ -2,7 +2,7 @@ package com.jvvladimir.machine.learning
 
 import com.jvvladimir.machine.tree_machine.NeuralNetException
 import com.jvvladimir.machine.tree_machine.TreeParityMachine
-import com.jvvladimir.machine.utils.Random.getInts
+import com.jvvladimir.machine.utils.MyRandom.getInts
 
 class TPMTrainer {
 
