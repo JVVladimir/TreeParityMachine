@@ -6,15 +6,21 @@ import com.jvvladimir.machine.tree_machine.layer.HiddenLayer
 import com.jvvladimir.machine.tree_machine.layer.OutputLayer
 
 class TreeParityMachine(
-        private val n: Int,
-        private val k: Int,
-        private val leftBound: Int,
-        private val rightBound: Int,
-        var learningParadigm: LearningParadigm
+        block: TreeParityMachine.(TreeParityMachine) -> Unit
 ) : Training {
 
-    private val hiddenLayer: HiddenLayer = HiddenLayer(n, k, leftBound, rightBound, learningParadigm)
-    private val outputLayer: OutputLayer = OutputLayer(k)
+    init {
+        this.block(this)
+    }
+
+    var n: Int = 3
+    var k: Int = 4
+    var leftBound: Int = -2
+    var rightBound: Int = 2
+    var learningParadigm: LearningParadigm = LearningParadigm.HEBBIAN
+
+    private val hiddenLayer = HiddenLayer(n, k, leftBound, rightBound, learningParadigm)
+    private val outputLayer = OutputLayer(k)
 
     fun getOutput(input: IntArray): Int {
         return outputLayer.getOutput(hiddenLayer.getOutput(input))
@@ -41,4 +47,8 @@ class TreeParityMachine(
 
     override fun toString() =
             "TreeParityMachine{ n= $n k= $k leftBound= $leftBound rightBound= $rightBound hiddenLayer= $hiddenLayer outputLayer= $outputLayer paradigm= $learningParadigm}"
+}
+
+fun tpm(block: TreeParityMachine.(TreeParityMachine) -> Unit): TreeParityMachine {
+    return TreeParityMachine(block)
 }
